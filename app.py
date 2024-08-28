@@ -37,6 +37,21 @@ def predict_outcome(new_data):
     prediction = loaded_model.predict(new_data)[0][0] 
     return prediction
 
+
+# Endpoint to fetch all diabetes data
+@app.route('/diabetes-data', methods=['GET'])
+def get_diabetes_data():
+    diabetes_data = list(diabetic_collection.find({}, {'_id': 0}))  # Fetch all diabetes data
+    return jsonify(diabetes_data)
+
+# Endpoint to fetch all retinopathy data
+@app.route('/retinopathy-data', methods=['GET'])
+def get_retinopathy_data():
+    retinopathy_data = list(retina_collection.find({}, {'_id': 0}))  # Fetch all retinopathy data
+    return jsonify(retinopathy_data)
+
+
+
 # Function to train KNN model for retinopathy prediction
 def train_knn_model(data):
     # Preprocessing: Calculate 'Years Since Diagnosis'
